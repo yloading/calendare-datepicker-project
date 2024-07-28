@@ -1,11 +1,10 @@
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
-import Header from "../components/Header";
+import NavBar from "../components/HeaderComponent/NavBar";
 
 const DatePickerPage = () => {
   return (
     <>
-      <Header />
+      <NavBar />
       This is DatePickerPage
     </>
   );

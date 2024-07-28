@@ -1,11 +1,12 @@
 import React, { memo } from "react";
-import Header from "../components/Header";
+import NavBar from "../components/HeaderComponent/NavBar";
+import Calendar from "../components/CalendarComponent/Calendar";
 
 const CalendarPage = () => {
   return (
     <>
-      <Header />
-      This is CalendarPage
+      <NavBar />
+      <Calendar />
     </>
   );
 };

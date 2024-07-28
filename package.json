@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --port 3000",
     "build": "NODE_ENV=production webpack",
-    "start:prod": "npm run build && npx serve dist"
+    "start:prod": "npm run build && npx serve dist",
+    "css:watch": "npx tailwindcss -i ./src/assets/css/index.css -o ./src/assets/css/output.css --watch"
   },
   "keywords": [],
   "author": "Marvie Yuki Marfil",
@@ -19,6 +20,7 @@
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.0",
     "mini-css-extract-plugin": "^2.9.0",
+    "tailwindcss": "^3.4.7",
     "ts-loader": "^9.5.1",
     "typescript": "^5.5.4",
     "webpack": "^5.93.0",
@@ -26,6 +28,9 @@
     "webpack-dev-server": "^5.0.4"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
