@@ -159,10 +159,7 @@ const Calendar = () => {
                   setDate(new Date(prevYear));
                 }}
               />{" "}
-              <span
-                className="cursor-pointer hover:bg-gray-200 transition-all hover:px-7 hover:py-1"
-                onClick={() => setType("months")}
-              >
+              <span>
                 {getYearScope().start}-{getYearScope().end}
               </span>
               <FontAwesomeIcon
