@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 import { DerivedDatesType } from "../../../types/CalendarTypes";
+import { formatDate } from "../../../helpers/globalHelpers";
 
-export const useCalendar = () => {
-  const [type, setType] = useState("dates");
-
+export const useCalendar = (datePicker: boolean, dateInput: any) => {
   const newDate: Date = new Date();
-  // const [currentDay, setCurrentDay] = useState(new Date());
 
   const [date, setDate] = useState(newDate);
-  const [nextPrevCounter, setNextPrevCounter] = useState(0);
 
   const firstDateOfTheMonth: Date = new Date(
     date.getFullYear(),
@@ -21,7 +18,37 @@ export const useCalendar = () => {
     0
   );
 
-  const getDate = (day: number) =>
+  const [type, setType] = useState("dates");
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    if (datePicker) {
+      setShow(false);
+    }
+  }, [dateInput]);
+
+  useEffect(() => {
+    storeCurrentDateToSessionStorage();
+  }, []);
+
+  const storeCurrentDateToSessionStorage = () => {
+    sessionStorage.clear();
+    const today = new Date();
+    sessionStorage.setItem("today", today.toISOString());
+  };
+
+  const getTodaysDate = (date: string) => {
+    const today = sessionStorage.getItem("today");
+    if (today) {
+      const todayFormatted = formatDate(today);
+      const dateFormatted = formatDate(date);
+
+      return todayFormatted === dateFormatted;
+    }
+    return false;
+  };
+
+  const getFullDate = (day: number) =>
     new Date(date.getFullYear(), date.getMonth(), day);
 
   const deriveDates = () => {
@@ -32,7 +59,7 @@ export const useCalendar = () => {
       datesArray.push({
         isDateToday: false,
         isCurrent: false,
-        value: getDate(i - firstDateOfTheMonth.getDay()),
+        value: getFullDate(i - firstDateOfTheMonth.getDay()),
       });
     }
 
@@ -42,12 +69,10 @@ export const useCalendar = () => {
       i <= lastDateOfTheMonth.getDate();
       i++
     ) {
-      const compareTodayDate =
-        nextPrevCounter === 0 && getDate(i).getDate() === date.getDate();
       datesArray.push({
-        isDateToday: compareTodayDate,
+        isDateToday: getTodaysDate(getFullDate(i).toISOString()),
         isCurrent: true,
-        value: getDate(i),
+        value: getFullDate(i),
       });
     }
 
@@ -63,19 +88,43 @@ export const useCalendar = () => {
       datesArray.push({
         isDateToday: false,
         isCurrent: false,
-        value: getDate(i),
+        value: getFullDate(i),
       });
     }
 
     return datesArray;
   };
 
+  const getYearScope = (currentYear: number = date.getFullYear()) => {
+    const lastNumber = +currentYear
+      .toString()
+      .charAt(currentYear.toString().length - 1);
+
+    const afterYears: number = currentYear + (9 - lastNumber);
+    const previousYears = afterYears - 9;
+
+    return { start: previousYears, end: afterYears };
+  };
+
+  const getYears = () => {
+    const yearsArray: number[] = [];
+
+    for (let i = getYearScope().start - 1; i <= getYearScope().end + 1; i++) {
+      yearsArray.push(i);
+    }
+
+    return yearsArray;
+  };
+
   return {
     deriveDates,
     date,
     setDate,
-    setNextPrevCounter,
     type,
     setType,
+    show,
+    setShow,
+    getYearScope,
+    getYears,
   };
 };

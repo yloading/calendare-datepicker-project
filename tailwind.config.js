@@ -6,9 +6,10 @@ module.exports = {
       colors: {
         "nav-color": "#9DB2BF",
         "nav-border-color": "#DDDDDD",
+        "main-color": "#DB3D44",
       },
       fontFamily: {
-        "montserrat": "Montserrat",
+        montserrat: "Montserrat",
       },
     },
   },

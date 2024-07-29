@@ -1,12 +1,15 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import NavBar from "../components/HeaderComponent/NavBar";
 import Calendar from "../components/CalendarComponent/Calendar";
+import { useDateInput } from "../hooks/useDateInput";
 
 const CalendarPage = () => {
+  const { handleDateOnClick, dateInput } = useDateInput();
+
   return (
     <>
       <NavBar />
-      <Calendar />
+      <Calendar handleOnDateClick={handleDateOnClick} dateInput={dateInput} />
     </>
   );
 };
