@@ -28,12 +28,7 @@ const CalendarDates = (props: CalendarDateTypes) => {
   } = props;
 
   return (
-    <div
-      className={`border p-5 bg-white ${
-        datePicker &&
-        "before:h-0 before:content-[' '] before:absolute before:border-x-8 before:border-x-transparent before:border-b-8 before:border-b-gray before:top-[5.9rem] before:left-[27rem] before:ml-6"
-      }"`}
-    >
+    <div className={`border p-5 bg-white"`}>
       <div className="px-4 mb-3">
         <div className="text-center font-semibold">
           <FontAwesomeIcon
